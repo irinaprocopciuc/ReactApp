@@ -17,7 +17,7 @@ const containerStyle = {
 const SearchComponent = () => {
     return (
         <div style={containerStyle}>
-            <div style={searchStyle}>Search</div>
+            <div style={searchStyle}>Search by name</div>
         </div>
     );
 }

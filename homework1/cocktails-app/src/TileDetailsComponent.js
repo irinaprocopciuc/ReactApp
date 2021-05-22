@@ -61,7 +61,7 @@ class TileDetailsCompoenent extends React.Component {
                     <img src={drink} alt="drink" style={imgStyle} onClick={() => this.changeTile(this.props.name)} />
                </div>
                 <div>
-                    <h4 style={elementStyle} >Name: {this.props.name}</h4>
+                    <h4 style={elementStyle} >Title: {this.props.name}</h4>
                     <h4 style={elementStyle} >Id: {this.props.id}</h4>
                 </div>
             </div>
