@@ -1,0 +1,19 @@
+
+.elementStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgStyle {
+    width: 100px;
+    height: 100px;
+    padding: 40px;
+    border: 1px solid #cde9f7;
+}
+
+.tileContainerStyle {
+    margin-right: 20px;
+    cursor: pointer;
+    max-width: 200px;
+}

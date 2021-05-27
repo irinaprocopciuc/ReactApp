@@ -1,96 +1,111 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Route } from "react-router";
 import TileComponent from "./TileComponent";
 import TileDetailsCompoenent from "./TileDetailsComponent";
+import "./list.css";
 
-class TileListComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            listElements: [
-                {id: '1', name: 'Title'},
-                {id: '2', name: 'Title23'},
-                {id: '3', name: 'Title35'},
-                {id: '4', name:'Title545'},
-            ],
-            isOnSingleTilePage: 'false',
-            showDetails: 'false',
-            currentComponent: {name: '', id: '0'}
-        }
-    }
+const TileListComponent = (props) => {
+  const [listState, setListState] = useState({
+    listOfDrinks: [],
+    isOnSingleTilePage: "false",
+    showDetails: "false",
+    currentComponent: { idDrink: "0", strDrink: "", strDrinkThumb: "" },
+    reloadData: false,
+  });
 
-    
-    render() {
-        const changeTile = (name) => {
-            this.setState({isOnSingleTilePage: 'true'});
-            this.setState({currentComponent: {name: name}});
-        }
+  useEffect(() => {
+    axios
+      .get(
+        "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
+      )
+      .then((res) => {
+        setListState({
+          listOfDrinks: res.data.drinks,
+          isOnSingleTilePage: "false",
+          showDetails: "false",
+        });
+      });
+  }, [listState.reloadData]);
 
-        const goBackToList = () => {
-            this.setState({isOnSingleTilePage: 'false'})
-        }
+  const changeTile = (drink) => {
+    setListState({ isOnSingleTilePage: "true" });
+    setListState({
+      currentComponent: {
+        strDrink: drink.strDrink,
+        strDrinkThumb: drink.strDrinkThumb,
+      },
+    });
+  };
 
-        const showDetails = (tile) => {
-            this.setState({showDetails: 'true'});
-            this.setState({currentComponent: {name: tile.name, id: tile.id}});
-        }
+  const goBackToList = () => {
+    setListState({ isOnSingleTilePage: "false", reloadData: true });
+  };
 
-        const hideDetails = () => {
-            this.setState({showDetails: 'false'});
-        }
+  const showDetails = (drink) => {
+    setListState({
+      listOfDrinks: listState.listOfDrinks,
+      isOnSingleTilePage: "false",
+      showDetails: "true",
+      currentComponent: {
+        strDrink: drink.strDrink,
+        idDrink: drink.idDrink,
+        strDrinkThumb: drink.strDrinkThumb,
+      },
+    });
+  };
 
-        const listOfTileElements = this.state.listElements.map(tileEl => <TileComponent key={tileEl.name} {...tileEl} chnageTileComp={changeTile} showTileDetails={showDetails} />)
-        const titleStyle = {
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#9d96eb',
-            backgroundColor: '#faf0f5',
-            paddingTop: '10px',
-            paddingBottom: '10px'
-          };
-          const listStyle = {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              margin: '0',
-              paddingLeft: '0px'
-          }
+  const hideDetails = () => {
+    setListState({
+      isOnSingleTilePage: "false",
+      showDetails: "false",
+      listOfDrinks: listState.listOfDrinks,
+    });
+  };
 
-          const singleTileStyle ={
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '40px'
-          }
+  const listOfTileElements = listState.listOfDrinks?.map((tileEl) => (
+    <TileComponent
+      key={tileEl.strDrink}
+      {...tileEl}
+      chnageTileComp={changeTile}
+      showTileDetails={showDetails}
+    />
+  ));
 
-          const buttonStyle = {
-              width: '180px',
-              height: '30px',
-              marginRight: '20px',
-              backgroundColor: 'pink',
-              color: 'grey',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer'
-          }
-        return (
-            <div>
-                {this.state.isOnSingleTilePage === 'false' ? 
-                <div>
-                    {this.state.showDetails === 'true' && <TileDetailsCompoenent {...this.state.currentComponent} hideTileDetails={hideDetails}/>}
-                    <h2 style={titleStyle}>Category 1</h2>
-                    <ul style={listStyle}>{listOfTileElements}</ul>
-                </div> :
-                <div style={singleTileStyle}>
-                    <TileComponent  key={this.state.currentComponent.name} {...this.state.currentComponent}/>
-                    <button style={buttonStyle} onClick={() => goBackToList()}>Back</button>
-                </div> }
-            </div>
-        );
-    }
-}
-
+  return (
+    <div>
+      {listState.isOnSingleTilePage === "false" ? (
+        <div>
+          {listState.showDetails === "true" && (
+            <TileDetailsCompoenent
+              {...listState.currentComponent}
+              hideTileDetails={hideDetails}
+            />
+          )}
+          <h2 className="titleStyle">Category 1</h2>
+          <ul className="listStyle">{listOfTileElements}</ul>
+        </div>
+      ) : (
+        <div className="singleTileStyle">
+          <div>
+            <Route
+              path={`${props.match.url}/details/${listState.currentComponent.strDrink}`}
+              render={() => (
+                <>
+                  {" "}
+                  <TileComponent
+                    key={listState.currentComponent.strDrink}
+                    {...listState.currentComponent}
+                    goBack={goBackToList}
+                  />{" "}
+                </>
+              )}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default TileListComponent;

@@ -1,39 +1,29 @@
 import React from 'react';
-import drink from './Images/drink.png';
+import { Link, useLocation } from 'react-router-dom';
+import './tile.css';
 
-const elementStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-}
-
-const imgStyle = {
-    width: '100px',
-    height: '100px',
-    padding: '40px',
-    border: '1px solid #cde9f7'
-}
-const containerStyle = {
-    marginRight: '20px',
-    cursor: 'pointer',
-    maxWidth: '200px'
-}
-class TileComponent extends React.Component {
-    changeTile = (name) => {
-        this.props.chnageTileComp(name);
+const TileComponent = (props) => {
+    const changeTile = (drink) => {
+        props.chnageTileComp(drink);
     }
 
-    showDetails = (tile) => {
-        this.props.showTileDetails(tile);
+    const showDetails = (tile) => {
+        props.showTileDetails(tile);
     }
-    render() {
-        return (
-            <div style={containerStyle} >
-                <img src={drink} alt="drink" style={imgStyle} onClick={() => this.changeTile(this.props.name)} />
-                <h3 style={elementStyle} onClick={() => this.showDetails(this.props)}>{this.props.name}</h3>
-            </div>
-        )
-    };
+
+    const goBackToList = () => {
+        props.goBack();
+    }
+
+    const showButton = useLocation().pathname.includes('details');
+
+    return (
+        <div className="tileContainerStyle" >
+            <Link to={`/cocktails/details/${props.strDrink}`}><img src={props.strDrinkThumb} alt="drink" className="imgStyle"  onClick={() => changeTile(props)} /></Link>
+            <h3 className="elementStyle" onClick={() => showDetails(props)}>{props.strDrink}</h3>
+            {showButton === true && <Link to={'/cocktails'} onClick={() => goBackToList()}> <button className="buttonStyle" >Back</button></Link>}
+        </div>
+    )
 }
 
 

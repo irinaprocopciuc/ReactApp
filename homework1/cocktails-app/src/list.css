@@ -1,0 +1,51 @@
+.titleStyle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9d96eb;
+    background-color:  #faf0f5;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.containerStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.firstContainer {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.buttonStyle {
+    width: 180px;
+    height: 30px;
+    margin-bottom: 20px;
+    background-color: pink;
+    color: grey;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.listStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding-left: 0px;
+    flex-wrap: wrap;
+}
+
+.singleTileStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
