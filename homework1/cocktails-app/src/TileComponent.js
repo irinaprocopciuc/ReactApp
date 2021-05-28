@@ -19,9 +19,9 @@ const TileComponent = (props) => {
 
     return (
         <div className="tileContainerStyle" >
-            <Link to={`/cocktails/details/${props.strDrink}`}><img src={props.strDrinkThumb} alt="drink" className="imgStyle"  onClick={() => changeTile(props)} /></Link>
+            <Link to={`/cocktails/${props.type}/details/${props.strDrink}`}><img src={props.strDrinkThumb} alt="drink" className="imgStyle"  onClick={() => changeTile(props)} /></Link>
             <h3 className="elementStyle" onClick={() => showDetails(props)}>{props.strDrink}</h3>
-            {showButton === true && <Link to={'/cocktails'} onClick={() => goBackToList()}> <button className="buttonStyle" >Back</button></Link>}
+            {showButton === true && <Link to={`/cocktails/${props.type}`} onClick={() => goBackToList()}> <button className="buttonStyle" >Back to <strong>{props.type}</strong></button></Link>}
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Route } from "react-router";
 import TileComponent from "./TileComponent";
 import TileDetailsCompoenent from "./TileDetailsComponent";
 import "./list.css";
@@ -11,13 +10,14 @@ const TileListComponent = (props) => {
     isOnSingleTilePage: "false",
     showDetails: "false",
     currentComponent: { idDrink: "0", strDrink: "", strDrinkThumb: "" },
-    reloadData: false,
+    reloadData: false
   });
 
   useEffect(() => {
+
     axios
       .get(
-        "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
+        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${props.linkType}=${props.type}`
       )
       .then((res) => {
         setListState({
@@ -26,12 +26,15 @@ const TileListComponent = (props) => {
           showDetails: "false",
         });
       });
-  }, [listState.reloadData]);
+  }, [listState.reloadData, props.type]);
 
   const changeTile = (drink) => {
-    setListState({ isOnSingleTilePage: "true" });
     setListState({
+      listOfDrinks: listState.listOfDrinks,
+      isOnSingleTilePage: "true",
+      showDetails: "false",
       currentComponent: {
+        idDrink: drink.idDrink,
         strDrink: drink.strDrink,
         strDrinkThumb: drink.strDrinkThumb,
       },
@@ -67,10 +70,12 @@ const TileListComponent = (props) => {
     <TileComponent
       key={tileEl.strDrink}
       {...tileEl}
+      {...props}
       chnageTileComp={changeTile}
       showTileDetails={showDetails}
     />
   ));
+
 
   return (
     <div>
@@ -88,19 +93,12 @@ const TileListComponent = (props) => {
       ) : (
         <div className="singleTileStyle">
           <div>
-            <Route
-              path={`${props.match.url}/details/${listState.currentComponent.strDrink}`}
-              render={() => (
-                <>
-                  {" "}
-                  <TileComponent
-                    key={listState.currentComponent.strDrink}
-                    {...listState.currentComponent}
-                    goBack={goBackToList}
-                  />{" "}
-                </>
-              )}
-            />
+             <TileComponent
+                key={listState.currentComponent.strDrink}
+                {...listState.currentComponent}
+                {...props}
+                goBack={goBackToList}
+              />
           </div>
         </div>
       )}

@@ -3,7 +3,6 @@ import TileListComponent from "./TileListComponent";
 import HeaderComponent from "./HeaderComponents";
 import SearchComponent from "./SearchComponent";
 import {  Route } from "react-router-dom";
-import TileDetailsCompoenent from "./TileDetailsComponent";
 
 const titleStyle = {
     height: '100px',
@@ -23,33 +22,38 @@ const listStyle = {
     paddingLeft: '0px'
 }
 
-const MainPage = (props) => {
+const MainPage = () => {
     const[pageState, setPageState] = useState({ 
         headerElements: [
             {name: 'Alcoholic'},
-            {name: 'Non Alcoholic'},
-            {name: 'Ordinary Drink'},
-            {name:'Cocktail glass'},
-            {name: 'Champagne flute'}
+            {name: 'Non_Alcoholic'},
+            {name: 'Ordinary_Drink'},
+            {name:'Cocktail_glass'},
+            {name: 'Champagne_flute'}
         ],
-        isOnListPage: 'true',
-        type: ''
+        type: '',
+        linkType: ''
     });
 
     const changeType = (element) => {
-        setPageState({type: element})
+        if (element.includes('Alcoholic')) {
+            setPageState({linkType: 'a', headerElements: pageState.headerElements, type: element})
+          } else if( element === 'Ordinary_Drink') {
+            setPageState({linkType: 'c', headerElements: pageState.headerElements, type: element})
+          } else {
+            setPageState({linkType: 'g', headerElements: pageState.headerElements, type: element})
+          }
     } 
 
-    const listOfHeaderElements = pageState.headerElements.map(headerEl => <HeaderComponent key={headerEl.name} {...headerEl} changeDrinkType={changeType} />)
+    const listOfHeaderElements = pageState.headerElements?.map(headerEl => <HeaderComponent key={headerEl.name} {...headerEl} changeDrinkType={changeType} />)
     
-        console.log(props);
     return (
         <div>
             <h1 style={titleStyle}>Cocktails</h1>
             <ul style={listStyle}>{listOfHeaderElements}</ul>
             <SearchComponent/>
             <div>
-                <Route path={'/cocktails'} component={TileListComponent} />
+                <Route path={`/cocktails/${pageState.type}`} render={() => <TileListComponent {...pageState} />} />
             </div>
         </div>
     );
