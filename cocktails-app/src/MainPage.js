@@ -38,11 +38,11 @@ const MainPage = () => {
     const changeType = (element) => {
         if (element.includes('Alcoholic')) {
             setPageState({linkType: 'a', headerElements: pageState.headerElements, type: element})
-          } else if( element === 'Ordinary_Drink') {
+        } else if( element === 'Ordinary_Drink') {
             setPageState({linkType: 'c', headerElements: pageState.headerElements, type: element})
-          } else {
+        } else {
             setPageState({linkType: 'g', headerElements: pageState.headerElements, type: element})
-          }
+        }
     } 
 
     const listOfHeaderElements = pageState.headerElements?.map(headerEl => <HeaderComponent key={headerEl.name} {...headerEl} changeDrinkType={changeType} />)

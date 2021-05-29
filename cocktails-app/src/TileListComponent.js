@@ -14,7 +14,6 @@ const TileListComponent = (props) => {
   });
 
   useEffect(() => {
-
     axios
       .get(
         `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${props.linkType}=${props.type}`
