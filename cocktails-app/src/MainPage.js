@@ -2,25 +2,9 @@ import React, { useState } from "react";
 import TileListComponent from "./TileListComponent";
 import HeaderComponent from "./HeaderComponents";
 import SearchComponent from "./SearchComponent";
-import {  Route } from "react-router-dom";
-
-const titleStyle = {
-    height: '100px',
-    width: '100%',
-    backgroundColor: '#cde9f7',
-    margin: '0px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  };
-const listStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '0',
-    height: '70px',
-    paddingLeft: '0px'
-}
+import {  Link, Route } from "react-router-dom";
+import './list.css';
+import './general.css';
 
 const MainPage = () => {
     const[pageState, setPageState] = useState({ 
@@ -49,8 +33,11 @@ const MainPage = () => {
     
     return (
         <div>
-            <h1 style={titleStyle}>Cocktails</h1>
-            <ul style={listStyle}>{listOfHeaderElements}</ul>
+            <div className="generailTitleStyle">
+                <h1>Cocktails</h1>
+                <Link to="/cocktails/add"><button className="buttonStyle">Add coktail</button></Link>
+            </div>
+            <ul className="headerListStyle">{listOfHeaderElements}</ul>
             <SearchComponent/>
             <div>
                 <Route path={`/cocktails/${pageState.type}`} render={() => <TileListComponent {...pageState} />} />

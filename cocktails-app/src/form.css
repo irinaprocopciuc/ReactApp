@@ -1,0 +1,26 @@
+.fromContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+
+
+.inputStyle {
+    margin-left: 20px;
+    border: none;
+    border-bottom: 1px solid #9d96eb;
+    width: 230px;
+}
+
+.filedGroup {
+    padding: 20px;
+}

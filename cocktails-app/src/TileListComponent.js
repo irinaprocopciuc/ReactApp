@@ -86,7 +86,7 @@ const TileListComponent = (props) => {
               hideTileDetails={hideDetails}
             />
           )}
-          <h2 className="titleStyle">Category 1</h2>
+          <h2 className="titleStyle">{props.type}</h2>
           <ul className="listStyle">{listOfTileElements}</ul>
         </div>
       ) : (
