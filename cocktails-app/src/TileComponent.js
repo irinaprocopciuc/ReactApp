@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './tile.css';
+import './style/tile.css';
 
 const TileComponent = (props) => {
     const changeTile = (drink) => {

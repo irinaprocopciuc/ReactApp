@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './general.css';
+import './style/general.css';
 
 const HeaderComponent = (props) => {
     const changeDrinkType = (element) => {

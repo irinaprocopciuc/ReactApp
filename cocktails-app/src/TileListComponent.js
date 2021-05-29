@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import TileComponent from "./TileComponent";
 import TileDetailsCompoenent from "./TileDetailsComponent";
-import "./list.css";
+import "./style/list.css";
 
 const TileListComponent = (props) => {
   const [listState, setListState] = useState({

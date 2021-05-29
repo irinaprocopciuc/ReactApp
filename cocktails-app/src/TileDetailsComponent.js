@@ -1,6 +1,6 @@
 import React from 'react';
-import './tile.css';
-import './list.css';
+import './style/tile.css';
+import './style/list.css';
 
 const TileDetailsCompoenent = (props) => {
     const hideDetails = () => {

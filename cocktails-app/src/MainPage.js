@@ -3,8 +3,8 @@ import TileListComponent from "./TileListComponent";
 import HeaderComponent from "./HeaderComponents";
 import SearchComponent from "./SearchComponent";
 import {  Link, Route } from "react-router-dom";
-import './list.css';
-import './general.css';
+import './style/list.css';
+import './style/general.css';
 
 const MainPage = () => {
     const[pageState, setPageState] = useState({ 
